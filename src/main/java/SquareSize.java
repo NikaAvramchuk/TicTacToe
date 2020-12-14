@@ -1,9 +1,9 @@
 public enum SquareSize {
-    WIDTH(50),
-    HEIGHT(50);
+    WIDTH(80),
+    HEIGHT(80);
 
 
-    private final int value;
+    final int value;
 
 
     SquareSize(int value) {
