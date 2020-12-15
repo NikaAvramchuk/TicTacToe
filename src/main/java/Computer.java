@@ -29,12 +29,10 @@ public class Computer implements Action{
     @Override
     public Square chooseSquareIfEnemyIsClose(ArrayList<Square> freeSquares) {
         Square[] seekingCombination = getWiningCombination();
-        Square computerChoise = null;
-        computerChoise = getSquare(seekingCombination, computerChoise);
-        return computerChoise;
+        return getSquare(seekingCombination);
     }
 
-    private Square getSquare(Square[] seekingCombination, Square computerChoise) {
+    private Square getSquare(Square[] seekingCombination) {
         for(Square square: seekingCombination) {
             boolean flag = false;
             for (Square square1: potentialCombination){
@@ -44,10 +42,10 @@ public class Computer implements Action{
                 }
             }
             if (!flag) {
-                computerChoise =square;
+                 return square;
             }
         }
-        return computerChoise;
+        return null;
     }
 
     private Square[] getWiningCombination() {
