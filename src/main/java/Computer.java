@@ -4,19 +4,31 @@ import java.util.Random;
 
 public class Computer implements Action{
     Square[] potentialCombination = new Square[2];
+    ArrayList<Square[]> handledPotentialCombination = new ArrayList<>();
 
     @Override
     public boolean checkEnemyMoves(ArrayList<Square> allEnemySquares) {
-        for (Square square: allEnemySquares) {
-            for (Square square1: allEnemySquares) {
-                if(square.x==square1.x && square.y==square1.y)
-                    continue;
-                if (square.x==square1.x || square.y==square1.y|| (square.x+square1.x==square.y+square1.y)) {
-                    potentialCombination[0]=square;
-                    potentialCombination[1] = square1;
+        if(allEnemySquares.size()==1)
+            return false;
+
+        for (int i = 0; i < allEnemySquares.size(); i++) {
+            outerloop:
+            for (int j = i + 1; j < allEnemySquares.size(); j++) {
+                if (allEnemySquares.get(i).x == allEnemySquares.get(j).x
+                        || allEnemySquares.get(i).y == allEnemySquares.get(j).y
+                        || (allEnemySquares.get(i).x + allEnemySquares.get(j).x == allEnemySquares.get(i).y + allEnemySquares.get(j).y)) {
+
+                    Square[] temporaryHold = {allEnemySquares.get(i), allEnemySquares.get(j)};
+                    for (Square[] squares : handledPotentialCombination) {
+                        if (squares[0].equals(temporaryHold[0]) && squares[1].equals(temporaryHold[1]) ) {
+                            break outerloop;
+                        }
+                    }
+                    potentialCombination[0] = allEnemySquares.get(i);
+                    potentialCombination[1] = allEnemySquares.get(j);
+                    handledPotentialCombination.add(potentialCombination);
                     return true;
                 }
-
             }
         }
         return false;
@@ -29,24 +41,26 @@ public class Computer implements Action{
     }
 
     @Override
-    public Square chooseSquareIfEnemyIsClose() {
+    public Square chooseSquareIfEnemyIsClose(ArrayList<Square> freeSquares) {
         Square[] seekingCombination = getWiningCombination();
-        System.out.println(Arrays.toString(seekingCombination));
-        System.out.println(Arrays.toString(potentialCombination));
-        return getSquare(seekingCombination);
+        Square squareFromCombinationList = getSquare(seekingCombination);
+        Square squareFromFreeSquaresList = null;
+        for(Square square1: freeSquares)
+            if(square1.equals(squareFromCombinationList))
+                squareFromFreeSquaresList=square1;
+        return squareFromFreeSquaresList;
     }
 
     private Square getSquare(Square[] seekingCombination) {
         for(Square square: seekingCombination) {
             boolean flag = false;
             for (Square square1: potentialCombination){
-                if(square.equals(square1)) {
+                if(square1.equals(square)) {
                     flag = true;
                     break;
                 }
             }
             if (!flag) {
-                System.out.println(square);
                 return square;
             }
         }
