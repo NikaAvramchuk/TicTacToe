@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Panel extends JPanel {
@@ -10,10 +8,10 @@ public class Panel extends JPanel {
     public Panel() {
         setLayout(null);
         setBackground(pink);
-        locateAllSquaresonBoard(game.allSquares);
+        locateAllSquaresOnBoard(game.allSquares);
     }
 
-    public void locateAllSquaresonBoard (ArrayList<Square> allSquares) {
+    public void locateAllSquaresOnBoard(ArrayList<Square> allSquares) {
         int horizontal;
         int vertical;
 
