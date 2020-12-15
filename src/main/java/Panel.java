@@ -53,9 +53,11 @@ public class Panel extends JPanel {
 //            }
             Square computerSquare;
             if (computer.checkEnemyMoves(game.userBookedSquares)) {
+                System.out.println("enemyisclose");
                 computerSquare = computer.chooseSquareIfEnemyIsClose(game.freeSquares);
 
             } else {
+                System.out.println("enemyisfar");
                 computerSquare = computer.chooseSquareIfThereIsNoRiskFromEnemy(game.freeSquares);
             }
             computerSquare.setBackground(Color.BLACK);

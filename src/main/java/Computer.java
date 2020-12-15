@@ -16,7 +16,8 @@ public class Computer implements Action{
             for (int j = i + 1; j < allEnemySquares.size(); j++) {
                 if (allEnemySquares.get(i).x == allEnemySquares.get(j).x
                         || allEnemySquares.get(i).y == allEnemySquares.get(j).y
-                        || (allEnemySquares.get(i).x + allEnemySquares.get(j).x == allEnemySquares.get(i).y + allEnemySquares.get(j).y)) {
+                        || (allEnemySquares.get(i).rightCross&&allEnemySquares.get(j).rightCross)
+                        || (allEnemySquares.get(i).leftCross&&allEnemySquares.get(j).leftCross)) {
 
                     Square[] temporaryHold = {allEnemySquares.get(i), allEnemySquares.get(j)};
                     for (Square[] squares : handledPotentialCombination) {

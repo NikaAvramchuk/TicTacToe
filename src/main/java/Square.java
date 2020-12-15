@@ -4,10 +4,28 @@ import java.util.Objects;
 public class Square extends JButton {
     final int x;
     final int y;
+    final boolean rightCross;
+    final boolean leftCross;
 
     public Square(int x, int y) {
         this.x = x;
         this.y = y;
+        if((x == 2 && y == 2)) {
+            rightCross=true;
+            leftCross=true;
+        }
+        else if((x == 1 && y == 1) || (x == 3 && y == 3)) {
+            rightCross=true;
+            leftCross=false;
+        }
+        else if((x == 1 && y == 3) || (x == 3 && y == 1)) {
+            rightCross=false;
+            leftCross=true;
+        }
+        else {
+            rightCross=false;
+            leftCross=false;
+        }
     }
 
     @Override
