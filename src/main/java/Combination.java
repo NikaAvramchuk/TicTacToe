@@ -21,4 +21,6 @@ public class Combination {
     static Square[] leftCross = {thirdRowFirstColumn, secondRowSecondColumn, firstRowThirdColumn};
 
 
+
+
 }
