@@ -11,20 +11,10 @@ public class Panel extends JPanel {
     Computer computer = new Computer();
 
     public Panel() {
+        System.out.println(game.freeSquares.size());
         setLayout(null);
         setBackground(pink);
         locateAllSquaresOnBoard(game.allSquares);
-        while (game.gameOver) {
-            Square computerSquare;
-            if(computer.checkEnemyMoves(game.userBookedSquares)) {
-                computerSquare=computer.chooseSquareIfEnemyIsClose();
-            }
-            else
-                computerSquare=computer.chooseSquareIfThereIsNoRiskFromEnemy(game.freeSquares);
-
-            game.freeSquares.remove(computerSquare);
-            computerSquare.setBackground(Color.BLACK);
-        }
     }
 
     public void locateAllSquaresOnBoard(ArrayList<Square> allSquares) {
@@ -58,12 +48,18 @@ public class Panel extends JPanel {
             square.setBackground(Color.WHITE);
             game.freeSquares.remove(square);
             game.userBookedSquares.add(square);
-            for(Square[] squares: Combination.allCombinations) {
-                if(game.userBookedSquares.containsAll(Arrays.asList(squares)))
-                    game.gameOver=true;
+            for (Square[] squares : Combination.allCombinations) {
+                if (game.userBookedSquares.containsAll(Arrays.asList(squares)))
+                    game.gameOver = true;
             }
-
+            Square computerSquare;
+            if (computer.checkEnemyMoves(game.userBookedSquares)) {
+                computerSquare = computer.chooseSquareIfEnemyIsClose();
+            } else
+                computerSquare = computer.chooseSquareIfThereIsNoRiskFromEnemy(game.freeSquares);
+            game.freeSquares.remove(computerSquare);
+            computerSquare.setBackground(Color.BLACK);
         });
     }
+ }
 
-}
