@@ -1,14 +1,30 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Panel extends JPanel {
     Game game = new Game();
     Color pink = Color.PINK;
+    Computer computer = new Computer();
+
     public Panel() {
         setLayout(null);
         setBackground(pink);
         locateAllSquaresOnBoard(game.allSquares);
+        while (game.gameOver) {
+            Square computerSquare;
+            if(computer.checkEnemyMoves(game.userBookedSquares)) {
+                computerSquare=computer.chooseSquareIfEnemyIsClose();
+            }
+            else
+                computerSquare=computer.chooseSquareIfThereIsNoRiskFromEnemy(game.freeSquares);
+
+            game.freeSquares.remove(computerSquare);
+            computerSquare.setBackground(Color.BLACK);
+        }
     }
 
     public void locateAllSquaresOnBoard(ArrayList<Square> allSquares) {
@@ -20,7 +36,7 @@ public class Panel extends JPanel {
             vertical=30+(SquareSize.HEIGHT.value*square.x);
             square.setBounds(horizontal,vertical,SquareSize.WIDTH.value,SquareSize.HEIGHT.value);
             setSquaresBoards(square);
-            square.addActionListener(e -> System.out.println(square.x + " " +square.y));
+            addActionListener(square);
             add(square);
         }
 
@@ -35,7 +51,19 @@ public class Panel extends JPanel {
         if(square.x==3 && square.y==3)
             square.setBorder(BorderFactory.createEmptyBorder());
         square.setBackground(pink);
+    }
 
+    public void addActionListener (Square square) {
+        square.addActionListener(e -> {
+            square.setBackground(Color.WHITE);
+            game.freeSquares.remove(square);
+            game.userBookedSquares.add(square);
+            for(Square[] squares: Combination.allCombinations) {
+                if(game.userBookedSquares.containsAll(Arrays.asList(squares)))
+                    game.gameOver=true;
+            }
+
+        });
     }
 
 }

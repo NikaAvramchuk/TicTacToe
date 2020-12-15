@@ -27,7 +27,7 @@ public class Computer implements Action{
     }
 
     @Override
-    public Square chooseSquareIfEnemyIsClose(ArrayList<Square> freeSquares) {
+    public Square chooseSquareIfEnemyIsClose() {
         Square[] seekingCombination = getWiningCombination();
         return getSquare(seekingCombination);
     }

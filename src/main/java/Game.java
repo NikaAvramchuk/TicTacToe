@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public class Game {
     ArrayList<Square> allSquares = createAllSquares();
     ArrayList<Square> freeSquares = new ArrayList<>(allSquares);
+    ArrayList<Square> userBookedSquares = new ArrayList<>();
+    boolean gameOver = false;
+
 
 
     public ArrayList<Square> createAllSquares () {
@@ -27,6 +30,7 @@ public class Game {
         allSquares.add(thirdRowThirdColumn);
         return allSquares;
     }
+
 
 
 }
