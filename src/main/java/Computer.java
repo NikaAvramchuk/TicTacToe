@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Computer implements Action{
     Square[] potentialCombination = new Square[2];
@@ -27,6 +28,35 @@ public class Computer implements Action{
 
     @Override
     public Square chooseSquareIfEnemyIsClose(ArrayList<Square> freeSquares) {
-        return null;
+        Square[] seekingCombination = getWiningCombination();
+        Square computerChoise = null;
+        computerChoise = getSquare(seekingCombination, computerChoise);
+        return computerChoise;
     }
+
+    private Square getSquare(Square[] seekingCombination, Square computerChoise) {
+        for(Square square: seekingCombination) {
+            boolean flag = false;
+            for (Square square1: potentialCombination){
+                if(square.equals(square1)) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                computerChoise =square;
+            }
+        }
+        return computerChoise;
+    }
+
+    private Square[] getWiningCombination() {
+        Square[] seekingCombination = new Square[3];
+        for(int i=0; i<Combination.allCombinations.length; i++) {
+            if(Arrays.asList(Combination.allCombinations[i]).containsAll(Arrays.asList(potentialCombination)))
+                seekingCombination=Combination.allCombinations[i];
+        }
+        return seekingCombination;
+    }
+
 }

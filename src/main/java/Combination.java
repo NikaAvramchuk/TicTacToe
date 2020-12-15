@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Combination {
     static Square firstRowFirstColumn = new Square(1,1);
     static Square firstRowSecondColumn = new Square(1,2);
@@ -19,6 +21,9 @@ public class Combination {
 
     static Square[] rightCross = {firstRowFirstColumn, secondRowSecondColumn, thirdRowThirdColumn};
     static Square[] leftCross = {thirdRowFirstColumn, secondRowSecondColumn, firstRowThirdColumn};
+
+    static Square[][] allCombinations ={firstRow,secondRow,thirdRow,firstColumn,secondColumn,thirdColumn,rightCross,leftCross};
+
 
 
 
